@@ -10,7 +10,14 @@ export default class Listener {
             evt.preventDefault()
             Request.getFullResponse()
                 .then(response => response.json())
-                .then(data => UI.getQuestion(data.results))
+                .then(data => {
+                    if (data.response_code == 1) {
+                        UI.ifFiteredNotExist()
+                    }
+                    if (data.response_code == 0) {
+                        UI.getQuestion(data.results)
+                    }
+                })
         })
 
     }
